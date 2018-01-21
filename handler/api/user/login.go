@@ -28,7 +28,7 @@ func Login(ctx *gin.Context) {
 	}
 
 	if u.Password != util.Md5(ul.Password) {
-		ctx.JSON(200, gin.H{"code": 1, "message": err.Error()})
+		ctx.JSON(200, gin.H{"code": 1, "message": "invalid email or password"})
 		return
 	}
 
