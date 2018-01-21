@@ -5,7 +5,7 @@ import "os"
 var (
 	AppName string
 	AppPort string
-	AppSecret string
+	AppSecret []byte
 
 	LogPath   = "./storage/logs/"
 	PanicPath = "./storage/panic/"
@@ -15,7 +15,7 @@ var (
 
 func app() error {
 	AppName = os.Getenv("APP_NAME")
-	AppSecret = os.Getenv("APP_SECRET")
+	AppSecret = []byte(os.Getenv("APP_SECRET"))
 	AppPort = ":" + os.Getenv("APP_PORT")
 
 	return nil
