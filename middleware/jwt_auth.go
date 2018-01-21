@@ -1,8 +1,6 @@
 package middleware
 
 import (
-	"fmt"
-
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
 	"github.com/kataras/iris/core/errors"
@@ -24,15 +22,15 @@ func JwtAuth() gin.HandlerFunc {
 
 		if err != nil {
 			ctx.AbortWithStatusJSON(401, gin.H{"error": err.Error()})
+		} else {
+			if !token.Valid {
+				ctx.AbortWithStatusJSON(401, gin.H{"error": err.Error()})
+			}
 		}
 
-		if token.Valid {
-			// TODO token.Claims["iss"] user email
-			fmt.Println(token.Claims)
-			ctx.Next()
-		} else {
-			ctx.AbortWithStatusJSON(401, gin.H{"error": err.Error()})
-		}
+		// TODO token.Claims["iss"] user email
+		// fmt.Println(token.Claims)
+		ctx.Next()
 
 	}
 }
