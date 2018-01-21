@@ -29,5 +29,9 @@ func Create() (*gin.Engine, error) {
 		userRouter.GET("/profile", user.Profile)
 	}
 
+	if err := api(r); err != nil {
+		return r, err
+	}
+
 	return r, nil
 }
