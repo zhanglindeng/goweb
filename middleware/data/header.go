@@ -10,7 +10,13 @@ var keyXRequestId = "X-Request-Id"
 func GetHeaderRequestId(ctx *gin.Context) string {
 	requestId := ctx.Request.Header.Get(keyXRequestId)
 	if len(requestId) == 0 {
-		requestId = uuid.NewV4().String()
+		u4, err := uuid.NewV4()
+		if err != nil {
+			return ""
+		}
+
+		requestId = u4.String()
+
 	}
 	return requestId
 }
