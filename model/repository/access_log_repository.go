@@ -20,3 +20,11 @@ func (AccessLogRepository) Create(al *model.AccessLog) error {
 	al.ContentLengthFormat = util.SizeFormat(al.ContentLength)
 	return c.Create(al).Error
 }
+
+func (AccessLogRepository) Find(logs []model.AccessLog, offset, limit int) (error) {
+	c, err := getMysqlConn()
+	if err != nil {
+		return err
+	}
+	return c.Order("request_time desc").Offset(offset).Limit(limit).Find(&logs).Error
+}

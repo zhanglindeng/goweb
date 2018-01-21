@@ -1,10 +1,12 @@
 package user
 
 import (
-	"net/http"
 	"strings"
+	"time"
 
+	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
+	"github.com/zhanglindeng/goweb/config"
 	"github.com/zhanglindeng/goweb/model"
 	"github.com/zhanglindeng/goweb/model/repository"
 	"github.com/zhanglindeng/goweb/validate"
@@ -15,7 +17,7 @@ func Register(ctx *gin.Context) {
 
 	ur, err := validate.UserRegisterValidate(ctx)
 	if err != nil {
-		ctx.JSON(500, gin.H{"error": err.Error()})
+		ctx.JSON(200, gin.H{"code": 1, "message": err.Error()})
 		return
 	}
 
@@ -28,11 +30,21 @@ func Register(ctx *gin.Context) {
 	rur := repository.UserRepository{}
 
 	if err := rur.Create(u); err != nil {
-		ctx.JSON(500, gin.H{"error": err.Error()})
+		ctx.JSON(200, gin.H{"code": 1, "message": err.Error()})
 		return
 	}
 
-	ctx.JSON(http.StatusOK, gin.H{
-		"user": u,
-	})
+	claims := &jwt.StandardClaims{
+		ExpiresAt: time.Now().Add(time.Hour * 2).Unix(),
+		Issuer:    u.Email,
+		NotBefore: time.Now().Unix(),
+	}
+
+	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
+
+	if s, err := token.SignedString(config.AppSecret); err != nil {
+		ctx.JSON(200, gin.H{"code": 1, "message": err.Error()})
+	} else {
+		ctx.JSON(200, gin.H{"code": 0, "token": s, "message": "ok"})
+	}
 }
