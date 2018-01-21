@@ -23,15 +23,16 @@ func JwtAuth() gin.HandlerFunc {
 		})
 
 		if err != nil {
-			ctx.AbortWithError(401, err)
+			ctx.AbortWithStatusJSON(401, gin.H{"error": err.Error()})
 		}
 
 		if token.Valid {
 			// TODO token.Claims["iss"] user email
 			fmt.Println(token.Claims)
 			ctx.Next()
+		} else {
+			ctx.AbortWithStatusJSON(401, gin.H{"error": err.Error()})
 		}
 
-		ctx.AbortWithError(401, err)
 	}
 }
