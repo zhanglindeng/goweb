@@ -20,15 +20,6 @@ func Create() (*gin.Engine, error) {
 
 	r.GET("/", handler.Index)
 
-	//r.POST("/register", handler.Register)
-
-	// user group
-	//userRouter := r.Group("/user", middleware.UserAuthRequired())
-	//{
-	//	userRouter.GET("/create", user.Create)
-	//	userRouter.GET("/info", user.Info)
-	//	userRouter.GET("/profile", user.Profile)
-	//}
 
 	if err := api(r); err != nil {
 		return r, err
