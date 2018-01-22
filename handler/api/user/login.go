@@ -7,8 +7,8 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/zhanglindeng/goweb/config"
 	"github.com/zhanglindeng/goweb/model/repository"
+	"github.com/zhanglindeng/goweb/util"
 	"github.com/zhanglindeng/goweb/validate"
-	"github.com/zhanglindeng/util"
 )
 
 func Login(ctx *gin.Context) {

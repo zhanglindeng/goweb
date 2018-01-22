@@ -2,7 +2,7 @@ package repository
 
 import (
 	"github.com/zhanglindeng/goweb/model"
-	"github.com/zhanglindeng/util"
+	"github.com/zhanglindeng/goweb/util"
 )
 
 type AccessLogRepository struct{}

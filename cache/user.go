@@ -2,7 +2,7 @@ package cache
 
 import (
 	"github.com/gin-contrib/cache/persistence"
-	"github.com/zhanglindeng/util"
+	"github.com/zhanglindeng/goweb/util"
 )
 
 var userCachePrefix = "user_"

@@ -9,8 +9,8 @@ import (
 	"github.com/zhanglindeng/goweb/config"
 	"github.com/zhanglindeng/goweb/model"
 	"github.com/zhanglindeng/goweb/model/repository"
+	"github.com/zhanglindeng/goweb/util"
 	"github.com/zhanglindeng/goweb/validate"
-	"github.com/zhanglindeng/util"
 )
 
 func Register(ctx *gin.Context) {
