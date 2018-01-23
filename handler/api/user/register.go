@@ -21,10 +21,16 @@ func Register(ctx *gin.Context) {
 		return
 	}
 
+	hashedPassword, err := util.PasswordHash(ur.Password)
+	if err != nil {
+		ctx.JSON(200, gin.H{"code": 1, "message": err.Error()})
+		return
+	}
+
 	u := &model.User{
 		Name:     strings.Split(ur.Email, "@")[0],
 		Email:    ur.Email,
-		Password: util.Md5(ur.Password), //暂时 md5
+		Password: hashedPassword,
 	}
 
 	rur := repository.UserRepository{}
