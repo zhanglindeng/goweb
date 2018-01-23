@@ -11,3 +11,10 @@ go test -v -test.run TestUserLogin
 ```
 go test -v -test.run TestUserRegister
 ```
+
+## log
+
+### log index
+```
+go test -v -test.run TestLogIndex
+```
