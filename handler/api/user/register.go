@@ -6,6 +6,7 @@ import (
 
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
+	"github.com/zhanglindeng/goweb/cache"
 	"github.com/zhanglindeng/goweb/config"
 	"github.com/zhanglindeng/goweb/model"
 	"github.com/zhanglindeng/goweb/model/repository"
@@ -48,9 +49,17 @@ func Register(ctx *gin.Context) {
 
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 
-	if s, err := token.SignedString(config.AppSecret); err != nil {
+	s, err := token.SignedString(config.AppSecret)
+	if err != nil {
 		ctx.JSON(200, gin.H{"code": 1, "message": err.Error()})
-	} else {
-		ctx.JSON(200, gin.H{"code": 0, "token": s, "message": "ok"})
 	}
+
+	// 缓存 token 的 md5
+	if err := cache.SetUserTokenHash(u.Email, util.Md5(s)); err != nil {
+		ctx.JSON(200, gin.H{"code": 1, "message": err.Error()})
+	}
+
+	// todo user register log
+
+	ctx.JSON(200, gin.H{"code": 0, "token": s, "message": "ok"})
 }
