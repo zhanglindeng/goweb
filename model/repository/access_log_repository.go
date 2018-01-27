@@ -21,17 +21,24 @@ func (AccessLogRepository) Create(al *model.AccessLog) error {
 	return c.Create(al).Error
 }
 
-func (AccessLogRepository) Find(offset, limit int) ([]model.AccessLog, error) {
+func (ar AccessLogRepository) Find(offset, limit int) ([]model.AccessLog, int, error) {
 	var logs []model.AccessLog
+	var count int
+
+
 
 	c, err := getMysqlConn()
 	if err != nil {
-		return logs, err
+		return logs, count, err
 	}
 
-	if err := c.Order("request_time desc").Offset(offset).Limit(limit).Find(&logs).Error; err != nil {
-		return logs, err
+	if err := c.Model(&model.AccessLog{}).Count(&count).Error; err != nil {
+		return logs, count, err
 	}
 
-	return logs, nil
+	if err := c.Order("request_time_float desc").Offset(offset).Limit(limit).Find(&logs).Error; err != nil {
+		return logs, count, err
+	}
+
+	return logs, count, nil
 }

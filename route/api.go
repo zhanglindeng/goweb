@@ -23,7 +23,7 @@ func api(r *gin.Engine) error {
 		logRouter := apiRouter.Group("/log")
 		logRouter.Use(middleware.JwtAuth())
 		{
-			logRouter.GET("/", log.Index)
+			logRouter.GET("", log.Index)
 		}
 	}
 

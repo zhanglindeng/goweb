@@ -1,8 +1,6 @@
 package conn
 
 import (
-	"log"
-
 	"github.com/gin-contrib/cache/persistence"
 	"github.com/zhanglindeng/goweb/config"
 )
@@ -14,8 +12,6 @@ func GetRedisConn() (*persistence.RedisStore, error) {
 	if redisStore != nil {
 		return redisStore, nil
 	}
-
-	log.Println("redisStore is nil")
 
 	redisStore = persistence.NewRedisCache(config.RedisHost+":"+config.RedisPort, config.RedisPassword,
 		persistence.DEFAULT)
