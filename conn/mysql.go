@@ -29,6 +29,7 @@ func GetMysqlConn() (*gorm.DB, error) {
 	}
 
 	mysqlConn = conn
+	mysqlConn.LogMode(true)
 
 	return mysqlConn, nil
 }
