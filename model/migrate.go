@@ -20,5 +20,7 @@ func Migrate() error {
 	return conn.Set("gorm:table_options", "ENGINE="+config.DbEngine).AutoMigrate(
 		&User{},
 		&AccessLog{},
+		&Menu{},
+		&Submenu{},
 	).Error
 }
