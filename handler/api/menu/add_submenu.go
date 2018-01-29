@@ -49,5 +49,5 @@ func AddSubmenu(ctx *gin.Context) {
 		return
 	}
 
-	ctx.JSON(200, gin.H{"code": 1, "message": "ok", "submenu": s})
+	ctx.JSON(200, gin.H{"code": 0, "message": "ok", "submenu": s})
 }
