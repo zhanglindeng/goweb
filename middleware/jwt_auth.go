@@ -1,9 +1,10 @@
 package middleware
 
 import (
+	"errors"
+
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
-	"github.com/kataras/iris/core/errors"
 	"github.com/zhanglindeng/goweb/cache"
 	"github.com/zhanglindeng/goweb/config"
 	log2 "github.com/zhanglindeng/goweb/log"
