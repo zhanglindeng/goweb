@@ -10,7 +10,7 @@ import (
 
 func JsonRequired() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
-		if ctx.Request.Method == "POST" {
+		if ctx.Request.Method == "POST" && ctx.Request.ContentLength > 0 {
 			if ok := strings.Contains(ctx.ContentType(), "json"); !ok {
 				ctx.AbortWithError(http.StatusBadRequest, err2.ErrNotJson)
 			}
