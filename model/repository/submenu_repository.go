@@ -30,7 +30,7 @@ func (SubmenuRepository) All(submenus []model.Submenu) error {
 	if err != nil {
 		return err
 	}
-	return c.Preload("Menu").Find(&submenus).Error
+	return c.Find(&submenus).Error
 }
 
 func (SubmenuRepository) Add(s *model.Submenu) error {

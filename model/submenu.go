@@ -12,5 +12,5 @@ type Submenu struct {
 	Sort   int    `json:"sort" gorm:"not null;default:0"`
 	Status int    `json:"status" gorm:"not null;default:1"`
 	MenuID int    `json:"menu_id" gorm:"index;not null;default:0"`
-	Menu   Menu   `json:"menu"`
+	//Menu   Menu   `json:"menu"`
 }
