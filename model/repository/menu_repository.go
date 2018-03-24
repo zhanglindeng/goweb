@@ -58,6 +58,14 @@ func (MenuRepository) All(menus *[]model.Menu) error {
 	return c.Preload("Submenus").Find(menus).Error
 }
 
+func (MenuRepository) Active(menus *[]model.Menu) error {
+	c, err := getMysqlConn()
+	if err != nil {
+		return err
+	}
+	return c.Preload("Submenus").Where("status=?", 1).Find(menus).Error
+}
+
 func (MenuRepository) Add(m *model.Menu) error {
 	c, err := getMysqlConn()
 	if err != nil {

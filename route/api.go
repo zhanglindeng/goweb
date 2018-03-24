@@ -31,6 +31,7 @@ func api(r *gin.Engine) error {
 		menuRouter := apiRouter.Group("/menu")
 		{
 			menuRouter.GET("", menu.Index)
+			menuRouter.GET("/active", menu.Active)
 			menuRouter.POST("/add", menu.Add)
 			menuRouter.POST("/add/:id/submenu", menu.AddSubmenu)
 			menuRouter.POST("/del/:id", menu.Del)
@@ -41,7 +42,7 @@ func api(r *gin.Engine) error {
 			menuRouter.POST("/enable/:id/submenu/:sid", menu.EnableSubmenu)
 			menuRouter.POST("/update/:id", menu.Update)
 			menuRouter.POST("/update/:id/submenu/:sid", menu.UpdateSubmenu)
-			menuRouter.GET("/:id/submenus", menu.Submenus)
+			menuRouter.GET("/submenus/:id", menu.Submenus)
 		}
 	}
 
