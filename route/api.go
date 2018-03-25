@@ -21,6 +21,8 @@ func api(r *gin.Engine) error {
 			userRouter.POST("/login", user.Login)
 			// user list
 			userRouter.GET("/list", user.List)
+			// add user
+			userRouter.POST("/add", user.Add)
 		}
 
 		logRouter := apiRouter.Group("/log")
