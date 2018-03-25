@@ -63,7 +63,7 @@ func (MenuRepository) Active(menus *[]model.Menu) error {
 	if err != nil {
 		return err
 	}
-	return c.Preload("Submenus").Where("status=?", 1).Find(menus).Error
+	return c.Preload("Submenus", "status=?", 1).Where("status=?", 1).Find(menus).Error
 }
 
 func (MenuRepository) Add(m *model.Menu) error {
