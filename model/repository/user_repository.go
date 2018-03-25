@@ -7,6 +7,14 @@ import (
 
 type UserRepository struct{}
 
+func (ur UserRepository) All(users *[]model.User) error {
+	c, err := getMysqlConn()
+	if err != nil {
+		return err
+	}
+	return c.Select([]string{"id,name,email,created_at,updated_at"}).Find(users).Error
+}
+
 func (ur UserRepository) Create(u *model.User) (error) {
 	c, err := getMysqlConn()
 	if err != nil {
